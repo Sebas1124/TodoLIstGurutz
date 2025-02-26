@@ -1,35 +1,43 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react"
+import { InputComponent } from "./components/InputComponent"
 
-function App() {
-  const [count, setCount] = useState(0)
+export const App = () => {
+
+  const [tasks, setTasks] = useState([]);
+
+  const addTask = ( name ) => {
+    const task = {
+      id: 1,
+      name
+    }
+
+    setTasks([ ...tasks, task ]);
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="container">
+
+      <div className="header">
+        <h1>Mi todo List</h1>
       </div>
-      <h1>To do List hola soy sebas desde mi ordenador</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+
+      <div className="main d-flex justify-content-center flex-wrap gap-2">
+        <InputComponent
+          addTask={addTask}
+        />
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+
+      <ul className="list-group w-100 mt-3">
+        {
+          tasks.map( task => (
+            <li key={task.id} className="list-group-item d-flex justify-content-between align-items-center">
+              {task.name}
+              <button className="btn btn-danger btn-sm">Eliminar</button>
+            </li>
+          ))
+        }
+      </ul>
+
+    </div>
   )
 }
-
-export default App
