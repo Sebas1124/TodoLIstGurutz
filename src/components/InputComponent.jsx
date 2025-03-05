@@ -13,6 +13,12 @@ export const InputComponent = ({ addTask }) => {
         setInputvalue("");
     }
 
+    const IntroKey = ( event ) => {
+        if( event.key === "Enter" ){
+            confirmTask();
+        }
+    }
+
   return (
     <>
         <input 
@@ -21,6 +27,7 @@ export const InputComponent = ({ addTask }) => {
             className="form-control"
             value={inputValue}
             onChange={handleChange}
+            onKeyUpCapture={IntroKey}
         />
         <button 
             className="btn btn-outline-primary"
